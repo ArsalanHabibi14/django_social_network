@@ -1,0 +1,208 @@
+{% load static %}
+
+<!-- Fixed Sidebar Right -->
+
+<div class="fixed-sidebar right">
+    <div class="fixed-sidebar-right sidebar--small" id="sidebar-right">
+
+        <div class="mCustomScrollbar" data-mcs-theme="dark">
+            <ul class="chat-users">
+                {% for follower in followers %}
+                    <li class="inline-items js-chat-open">
+                        <div class="author-thumb">
+                            <img alt="author" src="{{ follower.user.image.url }}" class="avatar"
+                                 style="width: 34px;height: 34px">
+                            {% if follower.user.is_active %}
+                                <span class="icon-status online"></span>
+                            {% else %}
+                                <span class="icon-status disconected"></span>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="search-friend inline-items">
+            <a href="#" class="js-sidebar-open">
+                <svg class="olymp-menu-icon">
+                    <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-menu-icon"></use>
+                </svg>
+            </a>
+        </div>
+
+        <a href="#" class="olympus-chat inline-items js-chat-open">
+            <svg class="olymp-chat---messages-icon">
+                <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-chat---messages-icon"></use>
+            </svg>
+        </a>
+
+    </div>
+
+    <div class="fixed-sidebar-right sidebar--large" id="sidebar-right-1">
+
+        <div class="mCustomScrollbar" data-mcs-theme="dark">
+
+            <div class="ui-block-title ui-block-title-small">
+                <a href="#" class="title">Followers</a>
+            </div>
+
+            <ul class="chat-users">
+                {% for follower in followers %}
+                    <li class="inline-items">
+
+                        <div class="author-thumb">
+                            <img alt="author" src="{{ follower.user.image.url }}" class="avatar"
+                                 style="width: 34px;height: 34px">
+                            {% if follower.user.is_active %}
+                                <span class="icon-status online"></span>
+                            {% else %}
+                                <span class="icon-status disconected"></span>
+                            {% endif %}
+                        </div>
+
+                        <div class="author-status">
+                            <a href="{% url 'profile_view' follower.user.id follower.user.user_name %}"
+                               class="h6 author-name">{{ follower.user.user_name }} {{ follower.user.last_name }}</a>
+                            {% if follower.user.is_active %}
+                                <span class="status">ONLINE</span>
+                            {% else %}
+                                <span class="status">OFFLINE</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="more">
+                            <svg class="olymp-three-dots-icon">
+                                <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-three-dots-icon"></use>
+                            </svg>
+
+                            <ul class="more-icons">
+                                <li>
+                                    <svg data-toggle="tooltip" data-placement="top"
+                                         data-original-title="START CONVERSATION" class="olymp-comments-post-icon">
+                                        <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-comments-post-icon"></use>
+                                    </svg>
+                                </li>
+
+                                <li>
+                                    <svg data-toggle="tooltip" data-placement="top"
+                                         data-original-title="ADD TO CONVERSATION"
+                                         class="olymp-add-to-conversation-icon">
+                                        <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-add-to-conversation-icon"></use>
+                                    </svg>
+                                </li>
+
+                                <li>
+                                    <svg data-toggle="tooltip" data-placement="top"
+                                         data-original-title="BLOCK FROM CHAT" class="olymp-block-from-chat-icon">
+                                        <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-block-from-chat-icon"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                    </li>
+                {% endfor %}
+            </ul>
+
+
+        </div>
+        <div class="mCustomScrollbar" data-mcs-theme="dark">
+
+            <div class="ui-block-title ui-block-title-small">
+                <a href="#" class="title">Following</a>
+            </div>
+
+            <ul class="chat-users">
+                {% for following in right_following %}
+                    <li class="inline-items">
+
+                        <div class="author-thumb">
+                            <img alt="author" src="{{ following.user.image.url }}" class="avatar"
+                                 style="width: 34px;height: 34px">
+                            {% if following.user.is_active %}
+                                <span class="icon-status online"></span>
+                            {% else %}
+                                <span class="icon-status disconected"></span>
+                            {% endif %}
+                        </div>
+
+                        <div class="author-status">
+                            <a href="{% url 'profile_view' following.user.id following.user.user_name %}"
+                               class="h6 author-name">{{ following.user.user_name }} {{ following.user.last_name }}</a>
+                            {% if follower.user.is_active %}
+                                <span class="status">ONLINE</span>
+                            {% else %}
+                                <span class="status">OFFLINE</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="more">
+                            <svg class="olymp-three-dots-icon">
+                                <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-three-dots-icon"></use>
+                            </svg>
+
+                            <ul class="more-icons">
+                                <li>
+                                    <svg data-toggle="tooltip" data-placement="top"
+                                         data-original-title="START CONVERSATION" class="olymp-comments-post-icon">
+                                        <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-comments-post-icon"></use>
+                                    </svg>
+                                </li>
+
+                                <li>
+                                    <svg data-toggle="tooltip" data-placement="top"
+                                         data-original-title="ADD TO CONVERSATION"
+                                         class="olymp-add-to-conversation-icon">
+                                        <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-add-to-conversation-icon"></use>
+                                    </svg>
+                                </li>
+
+                                <li>
+                                    <svg data-toggle="tooltip" data-placement="top"
+                                         data-original-title="BLOCK FROM CHAT" class="olymp-block-from-chat-icon">
+                                        <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-block-from-chat-icon"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                    </li>
+                {% endfor %}
+            </ul>
+
+
+        </div>
+
+        <div class="search-friend inline-items">
+            <form class="form-group">
+                <input class="form-control" placeholder="Search Friends..." value="" type="text">
+            </form>
+
+            <a href="29-YourAccount-AccountSettings.html" class="settings">
+                <svg class="olymp-settings-icon">
+                    <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-settings-icon"></use>
+                </svg>
+            </a>
+
+            <a href="#" class="js-sidebar-open">
+                <svg class="olymp-close-icon">
+                    <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-close-icon"></use>
+                </svg>
+            </a>
+        </div>
+
+        <a href="#" class="olympus-chat inline-items js-chat-open">
+
+            <h6 class="olympus-chat-title">OLYMPUS CHAT</h6>
+            <svg class="olymp-chat---messages-icon">
+                <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-chat---messages-icon"></use>
+            </svg>
+        </a>
+
+    </div>
+</div>
+
+<!-- ... end Fixed Sidebar Right -->

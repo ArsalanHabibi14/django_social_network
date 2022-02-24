@@ -1,0 +1,60 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% load static %}
+{% block content %}
+    <div class="header-spacer header-spacer-small"></div>
+    <div class="main-header">
+        <div class="content-bg-wrap bg-account"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-8 m-auto col-md-8 col-sm-12 col-12">
+                    <div class="main-header-content">
+                        <h1>Select Follower</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="ui-block responsive-flex">
+                    <div class="ui-block-title">
+                        <h4>Select A Follower</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            {% if user_followers.exists %}
+                {% for follower in user_followers %}
+                    <div class="col col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6">
+                        <div class="ui-block">
+                            <!-- Friend Item -->
+                            <div class="friend-item-content">
+                                <div class="friend-avatar" style="padding-top: 70px">
+                                    <div class="author-thumb">
+                                        <img src="{{ follower.user.image.url }}" alt="author"
+                                             style="width: 92px;height: 92px;background-color: white">
+                                    </div>
+                                    <div class="author-content">
+                                        <a href="/view_profile/{{ follower.user.id }}/{{ follower.user.user_name }}/view/"
+                                           class="h5 author-name">{{ follower.user.user_name }} {{ follower.user.last_name }}</a>
+                                        <div class="country">{{ follower.user.location }}</div>
+                                    </div>
+                                </div>
+                                <a href="{% url 'create_message' follower.user.id %}" class="btn btn-success">Select</a>
+                            </div>
+
+                            <!-- ... end Friend Item -->            </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-success" style="width: 1150px">
+                    <center><h3>No Follower Found</h3></center>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

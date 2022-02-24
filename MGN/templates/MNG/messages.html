@@ -1,0 +1,104 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% load static %}
+{% block content %}
+    <div class="header-spacer header-spacer-small"></div>
+
+    <!-- Main Header Account -->
+
+    <div class="main-header">
+        <div class="content-bg-wrap bg-account"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-8 m-auto col-md-8 col-sm-12 col-12">
+                    <div class="main-header-content">
+                        <h1>Your Messages</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ... end Main Header Account -->
+
+
+    <!-- Your Account Personal Information -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
+                <div class="ui-block">
+                    <div class="ui-block-title">
+                        <h6 class="title">Chat / Messages</h6>
+                        <h4><span class="badge badge-danger">{{ total_message }}</span>
+                        </h4>
+                    </div>
+
+                    <div class="row">
+                        <div class="col col-xl-11 col-lg-6 col-md-12 col-sm-12  padding-r-0">
+
+
+                            <!-- Notification List Chat Messages -->
+
+                            <ul class="notification-list chat-message">
+                                {% for message in messages %}
+                                    <a href="{% url 'message_detail' message.id %}">
+                                        <li>
+                                            <div class="author-thumb">
+                                                <img src="{{ message.user.image.url }}" alt="author" style="width:45px;height: 45px">
+                                            </div>
+                                            <div class="notification-event">
+                                                {% if message.is_read %}
+                                                    <a href="{% url 'profile_view' message.user.id message.user.user_name %}"
+                                                       class="h6 notification-friend bold">{{ message.user.user_name }} {{ message.user.last_name }}</a>
+                                                    {% if message.user.location is not None %}
+                                                            <span class="notification-date">{{ message.user.location }}</span>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <h6>
+                                                        <a href="{% url 'profile_view'  message.user.id message.user.user_name %}"
+                                                           class="h6 notification-friend bold">
+                                                            <h5>{{ message.user.user_name }} {{ message.user.last_name }}</h5>
+                                                        </a>
+                                                        <span class="notification-date"><h6>{{ message.user.location }}</h6></span>
+                                                    </h6>
+                                                {% endif %}
+                                            </div>
+
+                                            <div class="more">
+                                                {% if message.is_read %}
+                                                    <a href="{% url 'message_detail' message.id  %}"
+                                                       class="btn btn-danger">View</a>
+                                                {% else %}
+                                                    <a href="{% url 'message_detail' message.id  %}"
+                                                       class="btn btn-secondary">View</a>
+                                                {% endif %}
+                                            </div>
+                                        </li>
+                                    </a>
+                                {% endfor %}
+                            </ul>
+
+                            <!-- ... end Notification List Chat Messages -->
+
+
+                        </div>
+
+                        <div class="col col-xl-7 col-lg-6 col-md-12 col-sm-12  padding-l-0">
+
+
+                            <!-- ... end Chat Field -->
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            
+        </div>
+    </div>
+
+    <!-- ... end Your Account Personal Information -->
+{% endblock %}

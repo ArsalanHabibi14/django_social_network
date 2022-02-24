@@ -1,0 +1,25 @@
+                        <div class="tab-pane active" id="home" role="tabpanel" data-mh="log-tab">
+                            <div class="title h6">Register to Olympus</div>
+                            <form class="content" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group label-floating is-empty">
+                                            {% for field in form %}
+                                                <p>{{ field.label }}:</p>
+                                                {{ field }}
+                                                {% for error in field.errors %}
+                                                    <p style="color: red">{{ error }}</p>
+                                                {% endfor %}
+                                                
+                                            {% endfor %}
+                                                
+                                        </div>
+
+                                        <button type="submit" class="btn btn-purple btn-lg full-width">Complete
+                                            Registration!
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>

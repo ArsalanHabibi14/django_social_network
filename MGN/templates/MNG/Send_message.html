@@ -1,0 +1,72 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% load static %}
+{% block content %}
+    <div class="header-spacer header-spacer-small"></div>
+
+    <!-- Main Header Account -->
+    
+    <div class="main-header">
+        <div class="content-bg-wrap bg-account"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-8 m-auto col-md-8 col-sm-12 col-12">
+                    <div class="main-header-content">
+                        <h1>Send Message To {{user_send.user_name.title}}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ... end Main Header Account -->
+    <!-- Your Account Personal Information -->
+
+    <div class="container">
+        <div class="row">
+
+                    
+                        <div class="col col-xl-9 col-lg-6 col-md-9 col-sm-12  padding-l-0">
+                            <!-- Chat Field -->
+                            <div class="chat-field">
+
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group label-floating is-empty">
+                                        {% for field in message_form %}
+                                            {{ field }}
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="add-options-message">
+                                        
+
+                                        <button type="submit" class="btn btn-primary btn-sm">Send</button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                            <!-- ... end Chat Field -->
+
+                        </div>
+                   
+
+               
+
+
+                <!-- Pagination -->
+
+                
+
+                <!-- ... end Pagination -->
+
+            </div>
+
+           
+        </div>
+    </div>
+
+    <!-- ... end Your Account Personal Information -->
+
+{% endblock %}

@@ -1,0 +1,155 @@
+{% load static %}
+<!-- Fixed Sidebar Left -->
+
+<div class="fixed-sidebar">
+    <div class="fixed-sidebar-left sidebar--small" id="sidebar-left">
+
+        <a href="{% url 'profile' %}" class="logo js-sidebar-open">
+            <div class="img-wrap">
+                <img src="{% static 'img/logo.png' %}" alt="Olympus">
+            </div>
+        </a>
+        <div class="mCustomScrollbar" data-mcs-theme="dark">
+            <ul class="left-menu">
+                <li>
+                    <a href="#" class="js-sidebar-open">
+                        <svg class="olymp-menu-icon left-menu-icon" data-toggle="tooltip" data-placement="right"
+                             data-original-title="OPEN MENU">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-menu-icon"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'posts'  %}">
+                        <svg class="olymp-newsfeed-icon left-menu-icon" data-toggle="tooltip" data-placement="right"
+                             data-original-title="POSTS">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-newsfeed-icon"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'add_post' %}">
+                        <svg class="olymp-star-icon left-menu-icon" data-toggle="tooltip" data-placement="right"
+                             data-original-title="CREATE POST">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-plus-icon"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'search' %}">
+                        <svg class="olymp-happy-faces-icon left-menu-icon" data-toggle="tooltip" data-placement="right"
+                             data-original-title="SEARCH">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-magnifying-glass-icon"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'message' %}">
+                        <svg class="olymp-headphones-icon left-menu-icon" data-toggle="tooltip" data-placement="right"
+                             data-original-title="MESSAGES">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-chat---messages-icon"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'select_follower' %}">
+                        <svg class="olymp-weather-icon left-menu-icon" data-toggle="tooltip" data-placement="right"
+                             data-original-title="SEND MESSAGE">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-comments-post-icon"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'notification' %}">
+                        <svg class="olymp-calendar-icon left-menu-icon" data-toggle="tooltip" data-placement="right"
+                             data-original-title="NOTIFICATIONS">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-thunder-icon"></use>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="fixed-sidebar-left sidebar--large" id="sidebar-left-1">
+        <a href="{% url 'profile' %}" class="logo">
+            <div class="img-wrap">
+                <img src="{% static 'img/logo.png' %}" alt="Olympus">
+            </div>
+            <div class="title-block">
+                <h6 class="logo-title">olympus</h6>
+            </div>
+        </a>
+
+        <div class="mCustomScrollbar" data-mcs-theme="dark">
+            <ul class="left-menu">
+                <li>
+                    <a href="{% url 'profile' %}">
+                        <svg class="olymp-close-icon left-menu-icon">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-close-icon"></use>
+                        </svg>
+                        <span class="left-menu-title">Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'posts' %}">
+                        <svg class="olymp-newsfeed-icon left-menu-icon" data-toggle="tooltip" data-placement="right"
+                             data-original-title="NEWSFEED">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-newsfeed-icon"></use>
+                        </svg>
+                        <span class="left-menu-title">Posts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'add_post' %}">
+                        <svg class="olymp-star-icon left-menu-icon" data-toggle="tooltip" data-placement="right"
+                             data-original-title="CREATE POST">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-plus-icon"></use>
+                        </svg>
+                        <span class="left-menu-title">Create Post</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'search' %}">
+                        <svg class="olymp-happy-faces-icon left-menu-icon" data-toggle="tooltip" data-placement="right"
+                             data-original-title="FRIEND GROUPS">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-magnifying-glass-icon"></use>
+                        </svg>
+                        <span class="left-menu-title">Search</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'message' %}">
+                        <svg class="olymp-headphones-icon left-menu-icon" data-toggle="tooltip" data-placement="right"
+                             data-original-title="MESSAGES">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-chat---messages-icon"></use>
+                        </svg>
+                        <span class="left-menu-title">Messages</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'select_follower' %}">
+                        <svg class="olymp-weather-icon left-menu-icon" data-toggle="tooltip" data-placement="right"
+                             data-original-title="WEATHER APP">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-comments-post-icon"></use>
+                        </svg>
+                        <span class="left-menu-title">Send Message</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'notification' %}">
+                        <svg class="olymp-calendar-icon left-menu-icon" data-toggle="tooltip" data-placement="right"
+                             data-original-title="CALENDAR AND EVENTS">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-thunder-icon"></use>
+                        </svg>
+                        <span class="left-menu-title">NOTIFICATIONS</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<!-- ... end Fixed Sidebar Left -->

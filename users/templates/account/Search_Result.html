@@ -1,0 +1,279 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% load static %}
+{% block content %}
+    <div class="header-spacer"></div>
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-sm-12 col-12">
+
+                <div class="page-description">
+                    <div class="icon">
+                        <svg class="olymp-star-icon left-menu-icon" data-toggle="tooltip" data-placement="right"
+                             data-original-title="FAV PAGE">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-star-icon"></use>
+                        </svg>
+                    </div>
+                    <form method="get" action="/search/">
+                        <input type="text" placeholder="Search" value="{{ request.GET.search }}" name="search">
+                    </form>
+                </div>
+                {% if show_user.exists %}
+                    <div class="col col-xl-12 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
+                        <div class="ui-block">
+                            <div class="ui-block-title">
+                                {% if true_latest != "no" %}
+                                    <h6 class="title">People</h6>
+                                {% else %}
+                                    <h6 class="title">Latest Searches</h6>
+                                {% endif %}
+                                <a href="#" class="more">
+                                    <svg class="olymp-three-dots-icon">
+                                        <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-three-dots-icon"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                            <ul class="widget w-friend-pages-added notification-list friend-requests">
+                                {% if true_latest != "no" %}
+                                    {% for search_user in show_user %}
+                                        <li class="inline-items" style="height: 110px">
+                                            <div class="author-thumb">
+                                                <img src="{{ search_user.image.url }}" alt="author"
+                                                     style="width: 40px;height: 40px;">
+                                            </div>
+                                            <div class="notification-event">
+                                                <a href="{% url 'profile_view' search_user.id search_user.user_name %}"
+                                                   class="h6 notification-friend">{{ search_user.user_name }} {{ search_user.last_name }}</a>
+                                                <span class="chat-message-item"
+                                                      style="padding-right: 230px">{{ search_user.location }}</span>
+
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    {% for search_user in show_user %}
+                                        <li class="inline-items" style="height: 110px">
+                                            <div class="author-thumb">
+                                                <img src="{{ search_user.user.image.url }}" alt="author"
+                                                     style="width: 40px;height: 40px;">
+                                            </div>
+                                            <div class="notification-event">
+                                                <a href="{% url 'profile_view' search_user.user.id search_user.user.user_name %}"
+                                                   class="h6 notification-friend">{{ search_user.user.user_name }} {{ search_user.user.last_name }}</a>
+                                                <span class="chat-message-item"
+                                                      style="padding-right: 230px">{{ search_user.user.location }}</span>
+
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+                <div id="newsfeed-items-grid">
+
+
+                    {% for post in posts %}
+                        <div class="ui-block">
+                            <article class="hentry post">
+
+                                <div class="post__author author vcard inline-items">
+                                    <img src="{{ post.user.image.url }}" alt="author">
+
+                                    <div class="author-date">
+                                        <a class="h6 post__author-name fn"
+                                           href="{% url 'profile_view' post.user.id post.user.user_name %}">{{ post.user.user_name }} {{ post.user.last_name }}</a>
+                                        <div class="post__date">
+                                            <time class="published" datetime="2017-03-24T18:18">
+                                                {{ post.time|timesince }}
+                                            </time>
+                                        </div>
+                                    </div>
+
+                                    <div class="more">
+                                        <svg class="olymp-three-dots-icon">
+                                            <use xlink:href="svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use>
+                                        </svg>
+                                        <ul class="more-dropdown">
+                                            <li>
+                                                <a href="#">Edit Post</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Delete Post</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Turn Off Notifications</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Select as Featured</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <a href="{% url 'post_detail' post.id post.title %}">
+                                    <h6>{{ post.title }}</h6>
+                                </a>
+                                <p>{{ post.post_text }}
+                                </p>
+                                {% if post.file.url is not None %}
+                                    <img src="{{ post.file.url }}" alt="{{ post.title }}">
+                                {% endif %}
+                                <div class="post-additional-info inline-items">
+
+
+                                </div>
+
+                                <div class="control-block-button post-control-button">
+
+                                    <a href="#" class="btn btn-control">
+                                        <svg class="olymp-like-post-icon">
+                                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-like-post-icon"></use>
+                                        </svg>
+                                    </a>
+
+                                    <a href="#" class="btn btn-control">
+                                        <svg class="olymp-comments-post-icon">
+                                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-comments-post-icon"></use>
+                                        </svg>
+                                    </a>
+
+                                    <a href="#" class="btn btn-control">
+                                        <svg class="olymp-share-icon">
+                                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-share-icon"></use>
+                                        </svg>
+                                    </a>
+
+                                </div>
+
+                            </article>
+
+                            <ul class="comments-list">
+                                {% for comment in post.comments_set.all %}
+                                    <li class="comment-item">
+                                    <div class="post__author author vcard inline-items">
+                                        <img src="{{ comment.user.image.url }}" alt="author">
+
+                                        <div class="author-date">
+                                            <a class="h6 post__author-name fn"
+                                               href="{% url 'profile_view' comment.user.id comment.user.user_name %}">{{ comment.user.user_name.title }} {{ comment.user.last_name }}</a>
+                                            <div class="post__date">
+                                                <time class="published" datetime="2004-07-24T18:18">
+                                                    {{ comment.time | timesince }}
+                                                </time>
+                                            </div>
+                                        </div>
+
+                                        <a href="#" class="more">
+                                            <svg class="olymp-three-dots-icon">
+                                                <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-three-dots-icon"></use>
+                                            </svg>
+                                        </a>
+
+                                    </div>
+
+                                    <p>{{ comment.message }}</p>
+
+
+
+                                {% endfor %}
+                            </ul>
+
+
+                        </div>
+                    {% endfor %}
+                    <!-- ... end Post -->
+                    <!-- Comments -->
+
+                    <!-- ... end Comments -->
+
+                    <!-- ... end Comment Form  -->
+
+
+                </div>
+
+
+            </div>
+
+            <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
+                <div class="ui-block">
+
+                    <div class="ui-block-title">
+                        <h6 class="title">Followers</h6>
+                        <a href="#" class="more">
+                            <svg class="olymp-three-dots-icon">
+                                <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-three-dots-icon"></use>
+                            </svg>
+                        </a>
+                    </div>
+
+
+                    <!-- W-Activity-Feed -->
+
+                    <ul class="widget w-activity-feed notification-list">
+                        {% for follower_list in followers_user %}
+                            {% for follower in follower_list %}
+                                <li>
+                                    <div class="author-thumb">
+                                        <img src="{{ follower.user.image.url }}" alt="author">
+                                    </div>
+                                    <div class="notification-event">
+                                        <a href="#"
+                                           class="h6 notification-friend">{{ follower.user.user_name.title }} {{ follower.user.last_name.title }}
+                                            <span class="notification-date">{{ follower.user.location }}</span>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        {% endfor %}
+
+                    </ul>
+
+                    <!-- .. end W-Activity-Feed -->
+                </div>
+
+            </div>
+
+            <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
+
+
+                <div class="ui-block">
+                    <div class="ui-block-title">
+                        <h6 class="title">Popular People</h6>
+                        <a href="#" class="more">
+                            <svg class="olymp-three-dots-icon">
+                                <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-three-dots-icon"></use>
+                            </svg>
+                        </a>
+                    </div>
+
+
+                    <!-- W-Action -->
+
+                    <ul class="widget w-friend-pages-added notification-list friend-requests">
+                        {% for best_order in best_User %}
+                            <li class="inline-items">
+                                <div class="author-thumb">
+                                    <img src="{{ best_order.owner.image.url }}" alt="author"
+                                         style="width:30px;height: 30px">
+                                </div>
+                                <div class="notification-event">
+                                    <a href="/view_profile/{{ best_order.owner.id }}/{{ best_order.owner.user_name }}/view/"
+                                       class="h6 notification-friend">{{ best_order.owner.user_name.title }} {{ best_order.owner.last_name.title }}</a>
+                                    <span class="chat-message-item">{{ best_order.owner.location }}</span>
+                                </div>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+
+                    <!-- ... end W-Action -->
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

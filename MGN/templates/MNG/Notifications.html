@@ -1,0 +1,83 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ... end Responsive Header-BP -->
+<div class="header-spacer header-spacer-small"></div>
+
+<!-- Main Header Account -->
+
+<div class="main-header">
+	<div class="content-bg-wrap bg-account"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col col-lg-8 m-auto col-md-8 col-sm-12 col-12">
+				<div class="main-header-content">
+					<h1>Your Notifications</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- ... end Main Header Account -->
+
+
+
+<!-- Your Account Personal Information -->
+
+<div class="container">
+	<div class="row">
+		<div class="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<h6 class="title">Notifications</h6>
+					<a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg></a>
+				</div>
+
+				
+				<!-- Notification List -->
+				
+				<ul class="notification-list">
+					{% for nft in notifications %}
+					<li>
+						<a href="{% url 'profile_view' nft.user_following.id nft.user_following.user_name %}">
+							<div class="author-thumb">
+							<img src="{{ nft.user_following.image.url }}" alt="author" style="width: 42px;height: 42px">
+						</div>
+						</a>
+						<div class="notification-event">
+							<a href="{% url 'profile_view' nft.user_following.id nft.user_following.user_name %}" class="h6 notification-friend">{{nft.user_following.user_name.title}} {{nft.user_following.last_name}}</a> {{nft.description}} 
+							<span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">{{nft.time | timesince}} ago</time></span>
+						</div>
+						
+					</li>
+					{% endfor %}
+					{% for nftc in nft_comment %}
+					<li>
+						<a href="#">
+							<div class="author-thumb">
+							<img src="{{ nftc.send_user.image.url }}" alt="author" style="width: 42px;height: 42px">
+						</div>
+						</a>
+						<div class="notification-event">
+							<a href="{{nftc.is_read_true}}" class="h6 notification-friend">{{nftc.send_user.user_name.title}} {{nftc.send_user.last_name}}</a> {{nftc.description}} 
+							<span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">{{nftc.time | timesince}} ago</time></span>
+						</div>
+						
+					</li>
+					{% endfor %}
+				</ul>
+				
+				<!-- ... end Notification List -->
+
+			</div>
+
+		</div>
+
+		
+	</div>
+</div>
+
+<!-- ... end Your Account Personal Information -->
+{% endblock %}

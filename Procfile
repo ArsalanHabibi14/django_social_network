@@ -1,0 +1,1 @@
+web: gunicorn MyNewSocialNetwork.wsgi --log-file -

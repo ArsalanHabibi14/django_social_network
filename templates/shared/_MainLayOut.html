@@ -1,0 +1,23 @@
+{% load render_partial %}
+{% load static %}
+{% url 'fsf' user.id as fsf %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% include 'shared/CSSRefrences.html' %}
+    {% block css_ref %}{% endblock %}
+</head>
+<body class="body-bg-white">
+{% render_partial 'header' %}
+{% if request.path != fsf %}
+    {% include 'shared/left_bar.html' %}
+    {% render_partial 'right_bar' %}
+{% endif %}
+{% block content %}{% endblock %}
+{% include 'shared/Footer.html' %}
+{% include 'shared/JSRefrences.html' %}
+{% block js_ref %}{% endblock %}
+</body>
+</html>

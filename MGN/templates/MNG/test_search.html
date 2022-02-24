@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Search</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'Bootstrap/css/bootstrap.css' %}">
+</head>
+<body>
+<div class="container">
+	<input id="search_input" class="form-control" placeholder="Search Here.....">
+	<div id="box">
+		{% for user in users %}
+			<b>{{user}}</b><br>
+		{% endfor %}
+	</div>	
+</div>
+<script>
+	const data = "{{search_result}}"
+	console.log(data)
+
+	const rdata = JSON.parse(data.replace(/&lt;/g, '"'))
+	console.log(rdata)
+
+	const input = document.getElementById('search_input')
+	console.log(input)
+
+	let filteredArr = []
+
+	input.addEventListener('keyup', (e)=>{
+		box.innerHTML = ""
+		filteredArr = rdata.filter(user=> user['user_name'].includes(e.target.value))
+		console.log(filteredArr)
+		if (filteredArr.length > 0){
+			filteredArr.map(user=>{
+				box.innerHTML += `<b>${user['user_name']}</b><br>`
+			})
+		}
+		else{
+			box.innerHTML = `<b>No Result Found .....</b>`
+		}
+	})
+</script>
+</body>
+</html>

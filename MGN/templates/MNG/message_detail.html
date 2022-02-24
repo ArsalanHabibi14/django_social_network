@@ -1,0 +1,81 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% load static %}
+{% block content %}
+    <div class="header-spacer header-spacer-small"></div>
+
+    <!-- Main Header Account -->
+
+    <div class="main-header">
+        <div class="content-bg-wrap bg-account"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-8 m-auto col-md-8 col-sm-12 col-12">
+                    <div class="main-header-content">
+                        <h1>{{message.user.user_name.title}} Message</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Your Account Personal Information -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col col-xl-12 order-xl-2 col-lg-12 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12" style="padding-bottom: 100px">
+                <div class="ui-block">
+
+                    <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12  padding-l-0">
+
+
+                        <!-- Chat Field -->
+
+                        <div class="chat-field">
+                            <div class="ui-block-title">
+                                <h6 class="title">{{ message.user.user_name }} {{ message.user.last_name }}</h6>
+                                <a href="#" class="more">
+                                    <svg class="olymp-three-dots-icon">
+                                        <use xlink:href="svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="mCustomScrollbar" data-mcs-theme="dark">
+                                <ul class="notification-list chat-message chat-message-field">
+                                    <li>
+                                        <div class="author-thumb">
+                                            <img src="{{ message.user.image.url }}" alt="author" style="width: 40px">
+                                        </div>
+                                        <div class="notification-event">
+                                            <a href="#"
+                                               class="h6 notification-friend">{{ message.user.user_name }} {{ message.user.last_name }}</a>
+                                            <span class="notification-date"><time class="entry-date updated"
+                                                                                  datetime="2004-07-24T18:18">{{ message.time | timesince }} ago</time></span>
+                                            <span class="chat-message-item"
+                                                  style="padding-top: 20px;padding-right: 100px">{{ message.message_text }}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'create_message' message.user.id %}" class="btn btn-primary">Reply</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <!-- ... end Chat Field -->
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Pagination -->
+            <!-- ... end Pagination -->
+        </div>
+    </div>
+
+    <!-- ... end Your Account Personal Information -->
+
+    <!-- ... end Main Header Account -->
+
+{% endblock %}

@@ -1,0 +1,163 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="header-spacer"></div>
+
+
+    <div class="container">
+        <div class="row">
+
+            <!-- Main Content Post Versions -->
+
+            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="ui-block">
+
+                    <!-- Post -->
+
+                    <article class="hentry post">
+
+                        <div class="post__author author vcard inline-items">
+                            <img src="{{ post.user.image.url }}" alt="author">
+
+                            <div class="author-date">
+                                <a class="h6 post__author-name fn"
+                                   href="/view_profile/{{ post.user.id }}/{{ post.user.user_name }}/view">{{ post.user.user_name }}</a>
+                                <div class="post__date">
+                                    <time class="published" datetime="2017-03-24T18:18">
+                                        {{ post.time | timesince }} ago
+                                    </time>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <p>{{ post.post_text }}
+                        </p>
+                        {% if post.file.url != None %}
+                            <div class="post-thumb">
+                                {% if post.get_extension == '.jpg' or post.get_extension == '.JPG' %}
+                                    <img src="{{ post.file.url }}" alt="{{ post.title }}">
+                                {% elif post.get_extension == '.mp4' %}
+                                    <video src="{{ post.file.url }}" style="width: 1000px;" autoplay controls></video>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                        <div class="post-additional-info inline-items">
+
+
+                            <div class="comments-shared">
+                                <a href="#" class="post-add-icon inline-items">
+                                    <svg class="olymp-speech-balloon-icon">
+                                        <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-speech-balloon-icon"></use>
+                                    </svg>
+                                    <span>{{ total_comment }}</span>
+                                </a>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </article>
+
+                    <!-- .. end Post -->
+
+                    <!-- Comments -->
+
+                    <ul class="comments-list">
+                        {% if comments.exists %}
+                            {% for comment in comments %}
+                                <li class="comment-item">
+                                    <div class="post__author author vcard inline-items">
+                                        <img src="{{ comment.user.image.url }}" alt="author">
+
+                                        <div class="author-date">
+                                            <a class="h6 post__author-name fn"
+                                               href="/view_profile/{{ comment.user.id }}/{{ comment.user.user_name }}/view">{{ comment.user.user_name }} {{ comment.user.last_name }}</a>
+                                            <div class="post__date">
+                                                <time class="published" datetime="2017-03-24T18:18">
+                                                    {{ comment.time | timesince }} ago
+                                                </time>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <p>{{ comment.message }}</p>
+
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <div class="alert alert-info">
+                                <h2>No Comment</h2>
+                            </div>
+                        {% endif %}
+
+                    </ul>
+
+
+                    <!-- Comment Form  -->
+
+                    <form class="comment-form inline-items" method="post">
+                        {% csrf_token %}
+                        <div class="post__author author vcard inline-items">
+                            <img src="{{ user.image.url }}" alt="author">
+
+                            <div class="form-group with-icon-right ">
+                                {{ comment_form.comment_text }}
+
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-md-2 btn-primary">Comment</button>
+
+
+                    </form>
+
+                    <!-- ... end Comment Form  -->
+                </div>
+            </div>
+
+            <!-- ... end Main Content Post Versions -->
+
+        </div>
+    </div>
+
+
+
+
+    <!-- Window-popup Blog Post Popup -->
+
+
+    <!-- ... end Window-popup Blog Post Popup -->
+
+    >
+
+
+    <!-- ... end Window-popup Update Header Photo -->
+
+
+
+    <!-- ... end Window-popup Choose from my Photo -->
+
+
+    <a class="back-to-top" href="#">
+        <img src="{% static 'svg-icons/back-to-top.svg' %}" alt="arrow" class="back-icon">
+    </a>
+
+
+
+
+    <!-- Window-popup-CHAT for responsive min-width: 768px -->
+
+
+
+    <!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
+
+{% endblock %}

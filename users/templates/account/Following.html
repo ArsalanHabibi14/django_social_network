@@ -1,0 +1,149 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% url 'profile_following' as own_profile_followings %}
+{% url 'profile_view_following' user_view.id user_view.user_name as profile_followings_view %}
+{% load static %}
+{% block content %}
+    <div class="header-spacer"></div>
+    {% include 'account/top_header.html' %}
+    <div class="container">
+        <div class="row">
+            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="ui-block responsive-flex">
+                    <div class="ui-block-title">
+                        <form class="w-search" method="get"
+                              action="{% if request.path == profile_followings_view %} {{ profile_followings_view }} {% else %}{{ own_profile_followings }}{% endif %}">
+                            <div class="form-group with-button">
+                                <input class="form-control" type="text" placeholder="Search Following..."
+                                       value="{{ request.GET.fg_search }}" name="fg_search">
+                                <button>
+                                    <svg class="olymp-magnifying-glass-icon">
+                                        <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-magnifying-glass-icon"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                        <a href="#" class="more">
+                            <svg class="olymp-three-dots-icon">
+                                <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-three-dots-icon"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Friends -->
+
+    <div class="container">
+        <div class="row">
+            {% if user_following.exists %}
+                {% for following in user_following %}
+                    <div class="col col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6">
+                        <div class="ui-block">
+
+                            <!-- Friend Item -->
+
+                            <div class="friend-item">
+                                <div class="friend-header-thumb">
+                                    <img src="{{ following.user.background_image.url }}" alt="friend"
+                                         style="width: 246px;height: 153px;">
+                                </div>
+
+                                <div class="friend-item-content">
+
+                                    <div class="more">
+                                        <svg class="olymp-three-dots-icon">
+                                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-three-dots-icon"></use>
+                                        </svg>
+                                        <ul class="more-dropdown">
+                                            <li>
+                                                <a href="#">Report Profile</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Block Profile</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Turn Off Notifications</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="friend-avatar">
+                                        <div class="author-thumb">
+                                            <img src="{{ following.user.image.url }}" alt="author"
+                                                 style="width: 92px;height: 92px;background-color: white">
+                                        </div>
+                                        <div class="author-content">
+                                            <a href="{% url 'profile_view' following.user.id following.user.user_name %}"
+                                               class="h5 author-name">{{ following.user.user_name }} {{ following.user.last_name }}</a>
+                                            <div class="country">{{ following.user.location }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-container" data-slide="fade">
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide">
+                                                <div class="friend-count" data-swiper-parallax="-500">
+                                                    <a href="{% url 'profile_view_following'  following.user.id following.user.user_name %}"
+                                                       class="friend-count-item">
+                                                        {% for s in following.user.orderfollowing_set.all %}
+                                                            <div class="h6">{{ s.total_follower }}</div>
+                                                        {% endfor %}
+                                                        <div class="title">Following</div>
+                                                    </a>
+                                                    <a href="{% url 'profile_view_followers'  following.user.id following.user.user_name %}"
+                                                       class="friend-count-item">
+                                                        {% for s in following.user.order_set.all %}
+                                                            <div class="h6">{{ s.total_follower }}</div>
+                                                        {% endfor %}
+                                                        <div class="title">Followers</div>
+                                                    </a>
+                                                </div>
+                                                <div class="control-block-button" data-swiper-parallax="-100">
+                                                    <a href="#" class="btn btn-control bg-blue">
+                                                        <svg class="olymp-happy-face-icon">
+                                                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-happy-face-icon"></use>
+                                                        </svg>
+                                                    </a>
+
+                                                    <a href="#" class="btn btn-control bg-purple">
+                                                        <svg class="olymp-chat---messages-icon">
+                                                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-chat---messages-icon"></use>
+                                                        </svg>
+                                                    </a>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="swiper-slide">
+                                                <p class="friend-about" data-swiper-parallax="-500">
+                                                    {{ following.order.owner.about_me }}
+                                                </p>
+
+                                                {#                                            <div class="friend-since" data-swiper-parallax="-100">#}
+                                                {#                                                <span>Friends Since:</span>#}
+                                                {#                                                <div class="h6">{{ following.time | timesince }}</div>#}
+                                                {#                                            </div>#}
+                                            </div>
+                                        </div>
+
+                                        <!-- If we need pagination -->
+                                        <div class="swiper-pagination"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ... end Friend Item -->            </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-success" style="width: 1150px">
+                    <center><h3>No Following Found</h3></center>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- ... end Friends -->
+{% endblock %}

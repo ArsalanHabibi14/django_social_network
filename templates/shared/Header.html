@@ -1,0 +1,235 @@
+{% load render_partial %}
+{% load static %}
+
+<!-- Header-BP -->
+
+<header class="header" id="site-header">
+
+    <div class="page-title">
+        <h6>Profile Page</h6>
+    </div>
+
+    <div class="header-content-wrapper">
+
+        <div class="control-block">
+
+            <div class="control-icon more has-items">
+                <svg class="olymp-chat---messages-icon">
+                    <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-chat---messages-icon"></use>
+                </svg>
+                {% if request.path != fsf %}
+                    {% if total_message != 0 %}
+                        <div class="label-avatar bg-purple">{{ total_message }}</div>
+                    {% endif %}
+                {% endif %}
+
+                <div class="more-dropdown more-with-triangle triangle-top-center">
+                    <div class="ui-block-title ui-block-title-small">
+                        <h6 class="title">Chat / Messages</h6>
+                        <a href="#">Mark all as read</a>
+                        <a href="#">Settings</a>
+                    </div>
+
+                    <div class="mCustomScrollbar" data-mcs-theme="dark">
+                        <ul class="notification-list chat-message">
+                            {% for message in messages %}
+                                {% if not message.is_read %}
+                                    <li class="message-unread">
+                                        <div class="author-thumb">
+                                            <img src="{{ message.user.image.url }}" alt="author"
+                                                 style="width: 33px; height: 33px">
+                                        </div>
+                                        <div class="notification-event">
+                                            <a href="/view_profile/{{ message.user.id }}/{{ message.user.user_name }}/"
+                                               class="h6 notification-friend">{{ message.user.user_name }} {{ message.user.last_name }}</a>
+                                            <span class="chat-message-item">{{ message.message_text }}</span>
+                                            <span class="notification-date"><time class="entry-date updated"
+                                                                                  datetime="2004-07-24T18:18">{{ message.time | timesince }} ago</time></span>
+                                        </div>
+                                        <a href="{% url 'message_detail' message.id %}">
+                                    <span class="notification-icon">
+                                    <svg class="olymp-chat---messages-icon"><use
+                                            xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-chat---messages-icon"></use></svg>
+                                </span>
+                                        </a>
+                                        <div class="more">
+                                            <svg class="olymp-three-dots-icon">
+                                                <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-three-dots-icon"></use>
+                                            </svg>
+                                        </div>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <a href="{% url 'message' %}" class="view-all bg-purple">View All Messages</a>
+                </div>
+            </div>
+
+            <div class="control-icon more has-items">
+                <svg class="olymp-thunder-icon">
+                    <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-thunder-icon"></use>
+                </svg>
+                {% if request.path != fsf %}
+                    {% if total_notifications != 0 %}
+                        <div class="label-avatar bg-primary">{{ total_notifications }}</div>
+                    {% endif %}
+                {% endif %}
+
+                <div class="more-dropdown more-with-triangle triangle-top-center">
+                    <div class="ui-block-title ui-block-title-small">
+                        <h6 class="title">Notifications</h6>
+                        <a href="#">Mark all as read</a>
+                        <a href="#">Settings</a>
+                    </div>
+
+                    <div class="mCustomScrollbar" data-mcs-theme="dark">
+                        <ul class="notification-list">
+                            {% for nft in notifications %}
+                                <li>
+                                    <div class="author-thumb">
+                                        <img src="{{ nft.user_following.image.url }}" alt="author"
+                                             style="width: 33px;height: 33px">
+                                    </div>
+                                    <div class="notification-event">
+                                        <div>
+                                            <a href="{% url 'profile_view' nft.user_following.id  nft.user_following.user_name %}"
+                                               class="h6 notification-friend">{{ nft.user_following.user_name }} {{ nft.user_following.last_name }} </a> {{ nft.description }}
+                                        </div>
+                                        <span class="notification-date"><time class="entry-date updated"
+                                                                              datetime="2004-07-24T18:18">{{ nft.time|timesince }} ago</time></span>
+                                    </div>
+                                    <span class="notification-icon">
+                                        <svg class="olymp-comments-post-icon"><use
+                                                xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-comments-post-icon"></use></svg>
+                                    </span>
+
+                                    <div class="more">
+                                        <svg class="olymp-three-dots-icon">
+                                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-three-dots-icon"></use>
+                                        </svg>
+                                        <svg class="olymp-little-delete">
+                                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-little-delete"></use>
+                                        </svg>
+                                    </div>
+                                </li>
+                            {% endfor %}
+
+                            {% for nft2 in notifications2 %}
+                                <li>
+                                    <div class="author-thumb">
+                                        <img src="{{ nft2.send_user.image.url }}" alt="author"
+                                             style="width: 33px;height: 33px">
+                                    </div>
+                                    <div class="notification-event">
+                                        <div>
+                                            <a href="{% url 'profile_view' nft2.send_user.id nft2.send_user.user_name %}"
+                                               class="h6 notification-friend">{{ nft2.send_user.user_name }} {{ nft2.send_user.last_name }}</a> {{ nft2.description }}
+                                        </div>
+                                        <span class="notification-date"><time class="entry-date updated"
+                                                                              datetime="2004-07-24T18:18">{{ nft2.time }}</time></span>
+                                    </div>
+                                    <span class="notification-icon">
+                                        <svg class="olymp-heart-icon"><use
+                                                xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-heart-icon"></use></svg>
+                                    </span>
+
+                                    <div class="more">
+                                        <svg class="olymp-three-dots-icon">
+                                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-three-dots-icon"></use>
+                                        </svg>
+                                        <svg class="olymp-little-delete">
+                                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-little-delete"></use>
+                                        </svg>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <a href="{% url 'notification' %}" class="view-all bg-primary">View All Notifications</a>
+                </div>
+            </div>
+
+            <div class="author-page author vcard inline-items more">
+                <div class="author-thumb">
+                    {% if request.user.profile_set.first.image.url is not None %}
+                        <img alt="author" src="{{ request.user.profile_set.first.image.url }}" class="avatar" style="width: 35px;height: 40px">
+                    {% endif %}
+                    <span class="icon-status online"></span>
+                    <div class="more-dropdown more-with-triangle">
+                        <div class="mCustomScrollbar" data-mcs-theme="dark">
+                            <div class="ui-block-title ui-block-title-small">
+                                <h6 class="title">Your Account</h6>
+                            </div>
+
+                            <ul class="account-settings">
+                                <li>
+                                    <a href="/profile/">
+
+                                        <svg class="olymp-menu-icon">
+                                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-menu-icon"></use>
+                                        </svg>
+
+                                        <span>Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'update_user' %}">
+                                        <svg class="olymp-star-icon left-menu-icon" data-toggle="tooltip"
+                                             data-placement="right" data-original-title="FAV PAGE">
+                                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-star-icon"></use>
+                                        </svg>
+
+                                        <span>Edit Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/logout/">
+                                        <svg class="olymp-logout-icon">
+                                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-logout-icon"></use>
+                                        </svg>
+
+                                        <span>Log Out</span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="ui-block-title ui-block-title-small">
+                                <h6 class="title">About You</h6>
+                            </div>
+
+                            <ul>
+                                <li>
+                                    <a href="{% url 'notification' %}">
+                                        <span>Notifications</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'message' %}">
+                                        <span>Messages</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <a href="{% url 'profile' %}" class="author-name fn">
+                    <div class="author-title">
+                        {{ request.user.profile_set.first.user_name.title }} {{ request.user.profile_set.first.last_name.title }}
+                        <svg class="olymp-dropdown-arrow-icon">
+                            <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-dropdown-arrow-icon"></use>
+                        </svg>
+                    </div>
+                    <span class="author-subtitle">{{ request.user.profile_set.first.location.title }}</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</header>
+
+<!-- ... end Header-BP -->

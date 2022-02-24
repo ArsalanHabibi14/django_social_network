@@ -1,0 +1,136 @@
+{% load static %}
+{% url 'about-user' as about %}
+{% url 'profile' as profile %}
+{% url 'profile_following' as profile_following %}
+{% url 'profile_followers' as profile_follower %}
+{% url 'profile_view_followers' user_view.id user_view.user_name as profile_view_follower %}
+{% url 'profile_view_following' user_view.id user_view.user_name as profile_view_following %}
+{% url 'profile_view' user_view.id user_view.user_name as view %}
+{% url 'update_user' as edit %}
+<div class="container">
+    <div class="row">
+        <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="ui-block">
+                <div class="top-header top-header-favorit">
+                    <div class="top-header-thumb">
+                        {% if request.path == view or request.path == profile_view_following or request.path == profile_view_follower %}
+                            {% if user_view.background_image.url is not None %}
+                                <img src="{{ user_view.background_image.url }}" alt="nature"
+                                     style="width: 1920px;height: 500px">
+                            {% endif %}
+                        {% else %}
+                            {% if request.user.profile_set.first.background_image.url is not None %}
+                                <img src="{{ request.user.profile_set.first.background_image.url }}" alt="nature"
+                                     style="width: 1800px;height: 500px">
+                            {% endif %}
+                        {% endif %}
+                        <div class="top-header-author">
+                            <div class="author-thumb">
+                                {% if request.path == view or request.path == profile_view_following or request.path == profile_view_follower %}
+                                    {% if user_view.image.url is not None %}
+                                        <img src="{{ user_view.image.url }}" alt="author"
+                                             style="width: 120px">
+                                    {% endif %}
+                                {% else %}
+                                    {% if request.user.profile_set.first.image.url is not None %}
+                                        <img src="{{ request.user.profile_set.first.image.url }}" alt="author"
+                                             style="width: 120px">
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="author-content">
+                                {% if request.path == view or request.path == profile_view_following or request.path == profile_view_follower %}
+                                    <a href="{{ view }}"
+                                       class="h3 author-name">{{ user_view.user_name.title }} {{ user_view.last_name.title }}</a>
+                                {% else %}
+
+                                    <a href="{{ profile }}"
+                                       class="h3 author-name">{{ request.user.profile_set.first.user_name.title }} {{ request.user.profile_set.first.last_name.title }}</a>
+                                {% endif %}
+                                {% if request.path == view or request.path == profile_view_following or request.path == profile_view_follower %}
+                                    {% if user_view.location is not None %}
+                                        <div class="country">{{ user_view.location }}</div>
+                                    {% endif %}
+                                {% else %}
+                                    {% if request.user.profile_set.first.location is not None %}
+                                        <div class="country">{{ request.user.profile_set.first.location.title }}</div>
+                                    {% endif %}
+                                {% endif %}
+                                <div class="country"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-section">
+                        <div class="row">
+                            <div class="col col-xl-12 m-auto col-lg-8 col-md-12">
+                                <ul class="profile-menu">
+
+                                    <li>
+                                        {% if request.path == view or request.path == profile_view_following or request.path == profile_view_follower %}
+                                            <a href="{{ view }}"
+                                               class="{% if request.path == view %} active {% endif %}">Posts</a>
+                                        {% else %}
+                                            <a href="{{ profile }}"
+                                               class="{% if request.path == profile %} active {% endif %}">Post</a>
+                                        {% endif %}
+                                    </li>
+                                    <li>
+                                        {% if request.path == view or request.path == profile_view_following or request.path == profile_view_follower %}
+                                            <a href="{{ profile_view_following }}"
+                                               class="{% if request.path == profile_view_following %} active {% endif %}">Following {{ order_following.total_follower }}</a>
+                                        {% else %}
+                                            <a href="{{ profile_following }}"
+                                               class="{% if request.path == profile_following %} active {% endif %}">Following {{ order_following.total_follower }}</a>
+                                        {% endif %}
+                                    </li>
+                                    <li>
+                                        {% if request.path == view or request.path == profile_view_following or request.path == profile_view_follower %}
+                                            <a href="{{ profile_view_follower }}"
+                                               class="{% if request.path == profile_view_follower %} active {% endif %}">Followers {{ order.total_follower }}</a>
+                                        {% else %}
+                                            <a href="{{ profile_follower }}"
+                                               class="{% if request.path == profile_follower %} active {% endif %}">Followers {{ order.total_follower }}</a>
+                                        {% endif %}
+                                    </li>
+                                    <li>
+                                        {% if request.path == profile or request.path == profile_following or request.path == profile_follower or request.path == about %}
+                                            <a href="{% url 'about-user' %}"
+                                               class="{% if request.path == about %} active {% endif %}">About</a>
+                                        {% else %}
+                                            <form method="post">
+                                                {% csrf_token %}
+                                                {% if btn_name == "Follow" %}
+                                                    <button type="submit"
+                                                            class="btn btn-primary">{{ btn_name }}</button>
+                                                {% else %}
+                                                    <button type="submit"
+                                                            class="btn btn-danger">{{ btn_name }}</button>
+                                                {% endif %}
+                                            </form>
+                                        {% endif %}
+                                    </li>
+
+                                    {% if request.path == profile or request.path == profile_following or request.path == profile_follower or request.path == about %}
+                                        <li>
+                                            <a href="{% url 'update_user' %}"
+                                               class="{% if request.path == edit %} active {% endif %}">
+                                                Edit Profile
+                                            </a>
+                                        </li>
+                                    {% endif %}
+
+                                    <li>
+                                        {% if request.path == profile or request.path == profile_follower or request.path == profile_following or request.path == about %}
+                                            <a href="{% url 'logout' %}">Log out</a>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

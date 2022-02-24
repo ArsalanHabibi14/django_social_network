@@ -1,0 +1,67 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% load static %}
+{% block content %}
+    <!-- ... end Responsive Header-BP -->
+    <div class="header-spacer header-spacer-small"></div>
+
+    <!-- Main Header Account -->
+
+    <div class="main-header">
+        <div class="content-bg-wrap bg-account"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-8 m-auto col-md-8 col-sm-12 col-12">
+                    <div class="main-header-content">
+                        <h1>Edit Your Profile</h1>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ... end Main Header Account -->
+
+
+    <!-- Your Account Personal Information -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
+                <div class="ui-block">
+                    <div class="ui-block-title">
+                        <h6 class="title">Personal Information</h6>
+                    </div>
+                    <div class="ui-block-content">
+
+
+                        <!-- Personal Information Form  -->
+
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        {{form.as_p}}
+                                    </div>
+
+                                </div>
+
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <button class="btn btn-primary btn-lg full-width">Save all Changes</button>
+                                </div>
+
+                            </div>
+                        </form>
+
+                        <!-- ... end Personal Information Form  -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ... end Your Account Personal Information -->
+{% endblock %}

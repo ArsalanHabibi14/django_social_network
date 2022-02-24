@@ -1,0 +1,76 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="header-spacer header-spacer-small"></div>
+
+    <!-- Main Header Account -->
+
+    <div class="main-header">
+        <div class="content-bg-wrap bg-account"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-8 m-auto col-md-8 col-sm-12 col-12">
+                    <div class="main-header-content">
+                        <h1>Create Post</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ... end Main Header Account -->
+
+    <!-- Your Account Personal Information -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
+                <div class="ui-block">
+                    <div class="ui-block-title">
+                        <h6 class="title">Create post</h6>
+                    </div>
+                    <div class="ui-block-content">
+
+
+                        <!-- Education History Form -->
+
+                        <form method="post" enctype="multipart/form-data">
+
+                            <div class="row">
+                                {% csrf_token %}
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        {{ post_form.as_p }}
+                                    </div>
+                                </div>
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <button class="btn btn-primary btn-lg full-width">Create Post</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- ... end Education History Form -->
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- ... end Your Account Personal Information -->
+
+
+
+    <!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
+
+
+    <a class="back-to-top" href="#">
+        <img src="{% static 'svg-icons/back-to-top.svg' %}" alt="arrow" class="back-icon">
+    </a>
+
+
+    </body>
+{% endblock %}

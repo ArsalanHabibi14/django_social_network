@@ -1,0 +1,163 @@
+{% load static %}
+{% load render_partial %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'Bootstrap/dist/css/bootstrap-reboot.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Bootstrap/dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Bootstrap/dist/css/bootstrap-grid.css' %}">
+
+    <!-- Main Styles CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fonts.min.css' %}">
+
+    <!-- Main Font -->
+    <script src="{% static 'js/webfontloader.min.js' %}"></script>
+    <script>
+        WebFont.load({
+            google: {
+                families: ['Roboto:300,400,500,700:latin']
+            }
+        });
+    </script>
+</head>
+<body>
+<div class="main-header main-header-fullwidth main-header-has-header-standard">
+
+
+    <!-- ... end Header Standard Landing  -->
+
+    <div class="header-spacer--standard"></div>
+
+    <div class="content-bg-wrap bg-landing"></div>
+
+    <div class="container">
+        <div class="row display-flex">
+            <div class="col col-xl-7 col-lg-5 col-md-12 col-sm-12 col-12">
+                <div class="landing-content">
+                    <h1>The Most Complete Social Network is Here!</h1>
+                    <p>We are the best and biggest social network
+                        Share you
+                        thoughts, write posts, See Your Followers and Following, earn badges and much
+                        more!
+                    </p>
+                    <a href="{% url 'register' %}" class="btn btn-md btn-border c-white">Register Now!</a>
+                </div>
+            </div>
+
+            <div class="col col-xl-5 ml-auto col-lg-6 col-md-12 col-sm-12 col-12">
+
+
+                <!-- Login-Registration Form  -->
+
+                <div class="registration-login-form">
+                    <ul class="nav nav-tabs" role="tablist">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#profile" role="tab">
+                                <svg class="olymp-register-icon">
+                                    <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-register-icon"></use>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                    
+
+                    <!-- Tab panes -->
+                    <!-- <div class="tab-content"> -->
+                        <div class="tab-pane" id="profile" role="tabpanel" data-mh="log-tab">
+                            <div class="title h6">Login to your Account</div>
+                            <form class="content" method="POST">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label">{{ login_form.user_name.label }}</label>
+                                            {{ login_form.user_name }}
+                                            {% for error in login_form.user_name.errors %}
+                                                <p style="color: red">{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label">{{ login_form.password.label }}</label>
+                                            {{login_form.password}}
+                                        </div>
+
+                                        <button type="submit" class="btn btn-lg btn-primary full-width">Login
+                                        </button>
+
+
+                                        <p>Don’t you have an account? <a href="{% url 'register' %}">Register Now!</a> it’s really
+                                            simple
+                                            and you can start enjoing all the benefits!</p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ... end Login-Registration Form  -->
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Clients Block -->
+
+
+
+<!-- ... end Window-popup-CHAT for responsive min-width: 768px -->
+
+
+<a class="back-to-top" href="#">
+    <img src="{% static 'svg-icons/back-to-top.svg' %}" alt="arrow" class="back-icon">
+</a>
+<script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+<script src="{% static 'js/jquery.appear.js' %}"></script>
+<script src="{% static 'js/jquery.mousewheel.js' %}"></script>
+<script src="{% static 'js/perfect-scrollbar.js' %}"></script>
+<script src="{% static 'js/jquery.matchHeight.js' %}"></script>
+<script src="{% static 'js/svgxuse.js' %}"></script>
+<script src="{% static 'js/imagesloaded.pkgd.js' %}"></script>
+<script src="{% static 'js/Headroom.js' %}"></script>
+<script src="{% static 'js/velocity.js' %}"></script>
+<script src="{% static 'js/ScrollMagic.js' %}"></script>
+<script src="{% static 'js/jquery.waypoints.js' %}"></script>
+<script src="{% static 'js/jquery.countTo.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/material.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-select.js' %}"></script>
+<script src="{% static 'js/smooth-scroll.js' %}"></script>
+<script src="{% static 'js/selectize.js' %}"></script>
+<script src="{% static 'js/swiper.jquery.js' %}"></script>
+<script src="{% static 'js/moment.js' %}"></script>
+<script src="{% static 'js/daterangepicker.js' %}"></script>
+<script src="{% static 'js/simplecalendar.js' %}"></script>
+<script src="{% static 'js/fullcalendar.js' %}"></script>
+<script src="{% static 'js/isotope.pkgd.js' %}"></script>
+<script src="{% static 'js/ajax-pagination.js' %}"></script>
+<script src="{% static 'js/Chart.js' %}"></script>
+<script src="{% static 'js/chartjs-plugin-deferred.js' %}"></script>
+<script src="{% static 'js/circle-progress.js' %}"></script>
+<script src="{% static 'js/loader.js' %}"></script>
+<script src="{% static 'js/run-chart.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
+<script src="{% static 'js/jquery.gifplayer.js' %}"></script>
+<script src="{% static 'js/mediaelement-and-player.js' %}"></script>
+<script src="{% static 'js/mediaelement-playlist-plugin.min.js' %}"></script>
+
+<script src="{% static 'js/base-init.js' %}"></script>
+<script defer src="{% static 'fonts/fontawesome-all.js' %}"></script>
+
+<script src="{% static 'Bootstrap/dist/js/bootstrap.bundle.js' %}"></script>
+
+</body>
+</html>

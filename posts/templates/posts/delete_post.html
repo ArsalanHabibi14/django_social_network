@@ -1,0 +1,114 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% load static %}
+{% block content %}
+    <div class="header-spacer"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col col-xl-12 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
+                <div id="newsfeed-items-grid">
+
+                    <div class="ui-block" id="all_posts">
+                        <!-- Post -->
+
+                        <article class="hentry post has-post-thumbnail shared-photo">
+
+                            <div class="post__author author vcard inline-items">
+                                <img src="{{ user.image.url }}" alt="author">
+
+                                <div class="author-date">
+
+                                    <div class="post__date">
+                                        <time class="published" datetime="2017-03-24T18:18">
+                                            {{ post.time | timesince }} ago
+                                        </time>
+                                    </div>
+                                </div>
+
+                                <div class="more">
+                                    <svg class="olymp-three-dots-icon">
+                                        <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-three-dots-icon"></use>
+                                    </svg>
+                                    <ul class="more-dropdown">
+                                        <li>
+                                            <a href="#">Edit Post</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'post_delete' post.id %}">Delete Post</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Turn Off Notifications</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Select as Featured</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                            {% if post.title != None %}
+                                <h5>{{ post.title }}</h5>
+                            {% endif %}
+                            <p>{{ post.post_text }}</p>
+
+                            {% if post.file.url != None %}
+                                <div class="post-thumb">
+                                    {% if post.get_extension == '.jpg' or post.get_extension == '.JPG' %}
+                                        <img src="{{ post.file.url }}" alt="photo"
+                                             style="width: 1000px; height: 450px">
+                                    {% elif post.get_extension == '.mp4' %}
+                                        <video src="{{ post.file.url }}" controls style="width: 1000px"></video>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+
+
+                            <div class="post-additional-info inline-items">
+                                <h4>Are you Sure you want to delete This post?</h4>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-md-2 btn-primary">Confirm</button>
+                                    <a href="/profile/" class="btn btn-md-2 btn-success">Back</a>
+                                </form>
+
+                            </div>
+
+                            <div class="control-block-button post-control-button">
+
+                                <a href="#" class="btn btn-control">
+                                    <svg class="olymp-like-post-icon">
+                                        <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-like-post-icon"></use>
+                                    </svg>
+                                </a>
+
+                                <a href="#" class="btn btn-control">
+                                    <svg class="olymp-comments-post-icon">
+                                        <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-comments-post-icon"></use>
+                                    </svg>
+                                </a>
+
+                                <a href="#" class="btn btn-control">
+                                    <svg class="olymp-share-icon">
+                                        <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-share-icon"></use>
+                                    </svg>
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                        <!-- .. end Post -->                </div>
+
+                </div>
+
+                <a id="load-more-button" href="#" class="btn btn-control btn-more"
+                   data-load-link="items-to-load.html"
+                   data-container="newsfeed-items-grid">
+                    <svg class="olymp-three-dots-icon">
+                        <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-three-dots-icon"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
