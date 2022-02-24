@@ -1,2 +1,0 @@
-UserName = arsalan
-password = so1213so
