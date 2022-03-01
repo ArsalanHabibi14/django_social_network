@@ -49,7 +49,7 @@
                                             {% if post.get_extension == '.jpg' or post.get_extension == '.JPG' %}
                                                 <img src="{{ post.file.url }}" alt="{{ post.title }}">
                                             {% elif post.get_extension == '.mp4' %}
-                                                <video src="{{ post.file.url }}" controls style="width: 480px"></video>
+                                                <video src="{{ post.file.url }}" controls autoplay muted style="width: 480px"></video>
                                             {% endif %}
                                         </div>
                                     {% endif %}
