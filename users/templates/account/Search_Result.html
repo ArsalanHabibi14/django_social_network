@@ -44,7 +44,7 @@
                                                      style="width: 40px;height: 40px;">
                                             </div>
                                             <div class="notification-event">
-                                                <a href="{% url 'profile_view' search_user.id search_user.user_name %}"
+                                                <a href="{% url 'add_latest_search' search_user.id %}"
                                                    class="h6 notification-friend">{{ search_user.user_name }} {{ search_user.last_name }}</a>
                                                 <span class="chat-message-item"
                                                       style="padding-right: 230px">{{ search_user.location }}</span>
@@ -120,7 +120,11 @@
                                 <p>{{ post.post_text }}
                                 </p>
                                 {% if post.file.url is not None %}
-                                    <img src="{{ post.file.url }}" alt="{{ post.title }}">
+                                    {% if post.get_extension != '.mp4' %}
+                                        <img src="{{ post.file.url }}" alt="{{ post.title }}">
+                                    {% else %}
+                                        <video src="{{ post.file.url }}" muted autoplay controls style="width: 480px"></video>
+                                    {% endif %}
                                 {% endif %}
                                 <div class="post-additional-info inline-items">
 

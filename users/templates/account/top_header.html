@@ -3,9 +3,9 @@
 {% url 'profile' as profile %}
 {% url 'profile_following' as profile_following %}
 {% url 'profile_followers' as profile_follower %}
-{% url 'profile_view_followers' user_view.id user_view.user_name as profile_view_follower %}
-{% url 'profile_view_following' user_view.id user_view.user_name as profile_view_following %}
-{% url 'profile_view' user_view.id user_view.user_name as view %}
+{% url 'profile_view_followers' user.id user.user_name as profile_view_follower %}
+{% url 'profile_view_following' user.id user.user_name as profile_view_following %}
+{% url 'profile_view' user.id user.user_name as view %}
 {% url 'update_user' as edit %}
 <div class="container">
     <div class="row">
@@ -13,49 +13,23 @@
             <div class="ui-block">
                 <div class="top-header top-header-favorit">
                     <div class="top-header-thumb">
-                        {% if request.path == view or request.path == profile_view_following or request.path == profile_view_follower %}
-                            {% if user_view.background_image.url is not None %}
-                                <img src="{{ user_view.background_image.url }}" alt="nature"
-                                     style="width: 1920px;height: 500px">
-                            {% endif %}
-                        {% else %}
-                            {% if request.user.profile_set.first.background_image.url is not None %}
-                                <img src="{{ request.user.profile_set.first.background_image.url }}" alt="nature"
-                                     style="width: 1800px;height: 500px">
-                            {% endif %}
-                        {% endif %}
+                        <img src="{{ user.background_image.url }}" alt="nature"
+                             style="width: 1920px;height: 500px">
+
                         <div class="top-header-author">
                             <div class="author-thumb">
-                                {% if request.path == view or request.path == profile_view_following or request.path == profile_view_follower %}
-                                    {% if user_view.image.url is not None %}
-                                        <img src="{{ user_view.image.url }}" alt="author"
-                                             style="width: 120px">
-                                    {% endif %}
-                                {% else %}
-                                    {% if request.user.profile_set.first.image.url is not None %}
-                                        <img src="{{ request.user.profile_set.first.image.url }}" alt="author"
-                                             style="width: 120px">
-                                    {% endif %}
-                                {% endif %}
+                                <img src="{{ user.image.url }}" alt="author"
+                                     style="width: 120px">
+
                             </div>
                             <div class="author-content">
-                                {% if request.path == view or request.path == profile_view_following or request.path == profile_view_follower %}
-                                    <a href="{{ view }}"
-                                       class="h3 author-name">{{ user_view.user_name.title }} {{ user_view.last_name.title }}</a>
-                                {% else %}
+                                <a href="{{ view }}"
+                                   class="h3 author-name">{{ user.user_name.title }} {{ user.last_name.title }}</a>
 
-                                    <a href="{{ profile }}"
-                                       class="h3 author-name">{{ request.user.profile_set.first.user_name.title }} {{ request.user.profile_set.first.last_name.title }}</a>
+                                {% if user.location is not None %}
+                                    <div class="country">{{ user.location }}</div>
                                 {% endif %}
-                                {% if request.path == view or request.path == profile_view_following or request.path == profile_view_follower %}
-                                    {% if user_view.location is not None %}
-                                        <div class="country">{{ user_view.location }}</div>
-                                    {% endif %}
-                                {% else %}
-                                    {% if request.user.profile_set.first.location is not None %}
-                                        <div class="country">{{ request.user.profile_set.first.location.title }}</div>
-                                    {% endif %}
-                                {% endif %}
+
                                 <div class="country"></div>
                             </div>
                         </div>

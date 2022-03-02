@@ -4,8 +4,7 @@
 {% block content %}
     <div class="header-spacer"></div>
     <!-- Top Header-Profile -->
-    {% include 'account/top_header.html' %}
-
+    {% include 'account/top_header.html' with user=request.user.profile_set.first %}
     <!-- ... end Top Header-Profile -->
     <div class="container">
         <div class="row">
@@ -135,35 +134,37 @@
 
             <!-- ... end Left Sidebar -->
             <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
-            <div class="ui-block">
-                <div class="ui-block-title">
-                    <h6 class="title">Your Activities</h6>
-                </div>
+                <div class="ui-block">
+                    <div class="ui-block-title">
+                        <h6 class="title">Your Activities</h6>
+                    </div>
 
-                <!-- W-Friend-Pages-Added -->
-                
-                <ul class="widget w-friend-pages-added notification-list friend-requests">
-                    {% for activity in activites %}
-                    <li class="inline-items">
-                        <div class="author-thumb">
-                            <img src="{{activity.user.image.url}}" alt="author" style="width: 30px">
-                        </div>
-                        <div class="notification-event">
-                            <span class="h6 notification-friend">{{activity.activity_text}}</span>
-                            <time>{{activity.time|timesince}} ago</time>
-                        </div>
-                        <span class="notification-icon" data-toggle="tooltip" data-placement="top" data-original-title="ADD TO YOUR FAVS">
+                    <!-- W-Friend-Pages-Added -->
+
+                    <ul class="widget w-friend-pages-added notification-list friend-requests">
+                        {% for activity in activites %}
+                            <li class="inline-items">
+                                <div class="author-thumb">
+                                    <img src="{{ activity.user.image.url }}" alt="author" style="width: 30px">
+                                </div>
+                                <div class="notification-event">
+                                    <span class="h6 notification-friend">{{ activity.activity_text }}</span>
+                                    <time>{{ activity.time|timesince }} ago</time>
+                                </div>
+                                <span class="notification-icon" data-toggle="tooltip" data-placement="top"
+                                      data-original-title="ADD TO YOUR FAVS">
                             <a href="#">
-                                <svg class="olymp-star-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-star-icon"></use></svg>
+                                <svg class="olymp-star-icon"><use
+                                        xlink:href="svg-icons/sprites/icons.svg#olymp-star-icon"></use></svg>
                             </a>
                         </span>
-                
-                    </li>
-                    {% endfor %}
-                </ul>
-                
-                <!-- .. end W-Friend-Pages-Added -->
-            </div>
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <!-- .. end W-Friend-Pages-Added -->
+                </div>
             </div>
 
 

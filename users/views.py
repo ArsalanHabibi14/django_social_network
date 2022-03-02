@@ -53,9 +53,9 @@ def register_page(request):
             user.save()
             login(request, user)
             return redirect('/profile/')
+        else:
+            print("Error")
     return render(request, 'account/register_form.html', context)
-
-
 
 
 def header(request):
@@ -95,7 +95,8 @@ def profile_following(request, *args, **kwargs):
         'total_message': 0,
         'total_notifications': 0
     }
-
+    get_profile = Profile.objects.filter(user_id=request.user.id).first()
+    context['user'] = get_profile
     open_order: Order = Order.objects.filter(owner_id=request.user.profile_set.first().id).first()
     open_order_following: OrderFollowing = OrderFollowing.objects.filter(
         owner_id=request.user.profile_set.first().id).first()
@@ -126,7 +127,8 @@ def profile_followers(request, *args, **kwargs):
         'total_message': 0,
         'total_notifications': 0
     }
-
+    get_profile = Profile.objects.filter(user_id=request.user.id).first()
+    context['user'] = get_profile
     open_order_main: Order = Order.objects.filter(owner_id=request.user.profile_set.first().id).first()
     open_order_main_following: OrderFollowing = OrderFollowing.objects.filter(
         owner_id=request.user.profile_set.first().id).first()
@@ -165,11 +167,13 @@ def profile_page(request, *args, **kwargs):
         context['comments'] = get_comments
         for s in get_comments:
             context['total_comments'] += 1
-    get_notifications = NotificationFollower.objects.filter(user_id=request.user.profile_set.first().id, is_read=False).order_by('-time')
+    get_notifications = NotificationFollower.objects.filter(user_id=request.user.profile_set.first().id,
+                                                            is_read=False).order_by('-time')
     context['notifications'] = get_notifications
     for n in get_notifications:
         context['total_notifications'] += 1
-    get_notifications2 = NotificationComment.objects.filter(user_id=request.user.profile_set.first().id, is_read=False).order_by('-time')
+    get_notifications2 = NotificationComment.objects.filter(user_id=request.user.profile_set.first().id,
+                                                            is_read=False).order_by('-time')
     context['notifications2'] = get_notifications2
     for n in get_notifications2:
         context['total_notifications'] += 1
@@ -181,7 +185,8 @@ def profile_page(request, *args, **kwargs):
         for s in get_comments:
             context['total_comments'] += 1
     open_order: Order = Order.objects.filter(owner_id=request.user.profile_set.first().id).first()
-    open_order_following: OrderFollowing = OrderFollowing.objects.filter(owner_id=request.user.profile_set.first().id).first()
+    open_order_following: OrderFollowing = OrderFollowing.objects.filter(
+        owner_id=request.user.profile_set.first().id).first()
     if open_order is not None:
         context['order'] = open_order
         context['order_following'] = open_order_following
@@ -333,9 +338,9 @@ def followers(request, *args, **kwargs):
         get_main_user = Profile.objects.filter(user_id=request.user.id).first()
         # if user_id == main_user_id:
         #     return redirect(f'/own_profile/followers/{get_main_user.id}/')
-        if get_user is not None and get_main_user is not None:
-            context['user_view'] = get_user
-            context['user'] = get_main_user
+        if get_user is not None:
+            context['user'] = get_user
+            context['main_user'] = get_main_user
             get_notifications = NotificationFollower.objects.filter(user_id=get_main_user.id, is_read=False).order_by(
                 '-time')
             context['notifications'] = get_notifications
@@ -417,8 +422,8 @@ def following(request, *args, **kwargs):
         # if user_id == main_user_id:
         #     return redirect(f'/own_profile/following/{get_main_user.id}/')
         if get_user is not None and get_main_user is not None:
-            context['user_view'] = get_user
-            context['user'] = get_main_user
+            context['user'] = get_user
+            context['main_user'] = get_main_user
             get_notifications = NotificationFollower.objects.filter(user_id=get_main_user.id, is_read=False).order_by(
                 '-time')
             context['notifications'] = get_notifications

@@ -3,9 +3,8 @@
 {% block content %}
     <div class="header-spacer"></div>
 
-
     <!-- Top Header-Profile -->
-    {% include 'account/top_header.html' %}
+    {% include 'account/top_header.html' with user=user_view %}
 
     <!-- ... end Top Header-Profile -->
     <div class="container">

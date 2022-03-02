@@ -4,7 +4,7 @@
 {% load static %}
 {% block content %}
     <div class="header-spacer"></div>
-    {% include 'account/top_header.html' %}
+    {% include 'account/top_header.html' with user=user %}
     <div class="container">
         <div class="row">
             <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -117,7 +117,7 @@
                             <!-- ... end Friend Item -->            </div>
                     </div>
                 {% endfor %}
-                {% else %}
+            {% else %}
                 <div class="alert alert-success" style="width: 1150px">
                     <center><h3>No Follower Found</h3></center>
                 </div>
