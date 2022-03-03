@@ -123,7 +123,8 @@
                                     {% if post.get_extension != '.mp4' %}
                                         <img src="{{ post.file.url }}" alt="{{ post.title }}">
                                     {% else %}
-                                        <video src="{{ post.file.url }}" muted autoplay controls style="width: 480px"></video>
+                                        <video src="{{ post.file.url }}" muted autoplay controls
+                                               style="width: 480px"></video>
                                     {% endif %}
                                 {% endif %}
                                 <div class="post-additional-info inline-items">
@@ -202,14 +203,15 @@
 
             </div>
 
-            <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
+            <div class="col col-lg-3 col-md-6 col-sm-6  sorting-item family animals natural politics">
+
                 <div class="ui-block">
 
                     <div class="ui-block-title">
-                        <h6 class="title">Followers</h6>
+                        <h6 class="title">Your Activities</h6>
                         <a href="#" class="more">
                             <svg class="olymp-three-dots-icon">
-                                <use xlink:href="{% static 'svg-icons/sprites/icons.svg' %}#olymp-three-dots-icon"></use>
+                                <use xlink:href="svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use>
                             </svg>
                         </a>
                     </div>
@@ -218,19 +220,16 @@
                     <!-- W-Activity-Feed -->
 
                     <ul class="widget w-activity-feed notification-list">
-                        {% for follower_list in followers_user %}
-                            {% for follower in follower_list %}
-                                <li>
-                                    <div class="author-thumb">
-                                        <img src="{{ follower.user.image.url }}" alt="author">
-                                    </div>
-                                    <div class="notification-event">
-                                        <a href="#"
-                                           class="h6 notification-friend">{{ follower.user.user_name.title }} {{ follower.user.last_name.title }}
-                                            <span class="notification-date">{{ follower.user.location }}</span>
-                                    </div>
-                                </li>
-                            {% endfor %}
+                        {% for activity in activities %}
+                            <li>
+                                <div class="author-thumb">
+                                    <img src="{{ activity.user.image.url }}" alt="author">
+                                </div>
+                                <div class="h6 notification-event">{{ activity.activity_text }}.
+                                    <span class="notification-date"><time class="entry-date updated"
+                                                                          datetime="2004-07-24T18:18">{{ activity.time|timesince }} ago</time></span>
+                                </div>
+                            </li>
                         {% endfor %}
 
                     </ul>

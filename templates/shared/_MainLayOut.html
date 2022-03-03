@@ -12,7 +12,7 @@
 <body class="body-bg-white">
 {% render_partial 'header' %}
 {% if request.path != fsf %}
-    {% include 'shared/left_bar.html' %}
+    {% render_partial 'users.views.left_bar' %}
     {% render_partial 'right_bar' %}
 {% endif %}
 {% block content %}{% endblock %}

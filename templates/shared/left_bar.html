@@ -6,7 +6,7 @@
 
         <a href="{% url 'profile' %}" class="logo js-sidebar-open">
             <div class="img-wrap">
-                <img src="{% static 'img/logo.png' %}" alt="Olympus">
+                <img src="{{ settings.logo.url }}" alt="Olympus">
             </div>
         </a>
         <div class="mCustomScrollbar" data-mcs-theme="dark">
@@ -75,10 +75,10 @@
     <div class="fixed-sidebar-left sidebar--large" id="sidebar-left-1">
         <a href="{% url 'profile' %}" class="logo">
             <div class="img-wrap">
-                <img src="{% static 'img/logo.png' %}" alt="Olympus">
+                <img src="{{ settings.logo.url }}" alt="Olympus">
             </div>
             <div class="title-block">
-                <h6 class="logo-title">olympus</h6>
+                <h6 class="logo-title">{{ settings.name }}</h6>
             </div>
         </a>
 

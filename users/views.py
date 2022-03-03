@@ -1,6 +1,6 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from MGN.models import MessageOrder, NotificationFollower, NotificationComment, Activity
+from MGN.models import MessageOrder, NotificationFollower, NotificationComment, Activity, Settings
 from posts.models import Posts, Comments
 from .forms import LoginForm, RegisterForm, UpdateForm
 from .models import (
@@ -650,6 +650,12 @@ def add_latest_search(request, *args, **kwargs):
                 return redirect(f'/view_profile/{get_user_view.id}/{get_user_view.user_name}/view/')
             else:
                 return redirect(f'/view_profile/{get_user_view.id}/{get_user_view.user_name}/view/')
+
+
+def left_bar(request):
+    context = {}
+    context['settings'] = Settings.objects.last()
+    return render(request, 'shared/left_bar.html', context)
 
 
 def right_bar(request):
